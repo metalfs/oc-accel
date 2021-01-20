@@ -401,7 +401,7 @@
    echo "**** run $PAR $TST_NAME app(s) timeout=${DDCB_TIMEOUT} seed=${TCL_SEED} randnum=$randnum tst_arg=$TST_ARG"|tee stim.log
    if [ "$EXPLORE" == "1" ];then
      echo "explore actions"|tee -a $STIMLOG
-     $SNAP_ROOT/software/tools/snap_maint 2>&1 |tee -a $STIMLOG
+     $SNAP_ROOT/software/tools/oc_maint 2>&1 |tee -a $STIMLOG
    fi
    for i in `seq 1 $PAR`;do					# start testcase
      prc[$i]=0

@@ -4534,10 +4534,21 @@ assign  mm_conv2snap_aruser = mm_act2conv_aruser;
 assign  mm_conv2snap_awuser = mm_act2conv_awuser;
 assign  mm_conv2act_buser = mm_snap2conv_buser;
 assign  mm_conv2act_ruser = mm_snap2conv_ruser;
-assign  mm_conv2snap_awid = mm_act2conv_awid;
-assign  mm_conv2snap_arid = mm_act2conv_arid;
-assign  mm_conv2act_bid = mm_snap2conv_bid;
-assign  mm_conv2act_rid = mm_snap2conv_rid;
+//FIXME-lw: Assignments to rid / bid cause driver conflict as they are already
+//   driven by the .s_axi_bid/rid ports of axi_dwidth_converter above.
+//   Also the Xilinx documentation for the dwidth_converter states that it does
+//   not pass on transaction ids but collapses them on the m_axi master interface.
+//   Thus it seems dangerous to simply pass these qualifiers combinatorially
+//   across the dwidth_converter.
+// BTW: The same seems to apply to the user signals above,
+//   which are not handled by the dwidth_converter at all.
+// assign  mm_conv2snap_awid = mm_act2conv_awid;
+// assign  mm_conv2snap_arid = mm_act2conv_arid;
+// assign  mm_conv2act_bid = mm_snap2conv_bid;
+// assign  mm_conv2act_rid = mm_snap2conv_rid;
+assign  mm_conv2snap_awid = 'b0;
+assign  mm_conv2snap_arid = 'b0;
+
 
 // if HOST data bus width for snap action is 1024 bits
 `else
